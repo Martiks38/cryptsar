@@ -1,0 +1,11 @@
+:root {
+  --bg-column: #e4e2dd;
+  --bg-column-shadow: #000;
+}
+
+.pageHeader {
+  max-width: 90rem;
+  width: 100%;
+  height: 3.125rem;
+  background-image: linear-gradient(3deg);
+}
