@@ -1,0 +1,12 @@
+{
+  "en": {
+    "intro": "It is a type of substitution cipher in which a letter in the source text is replaced by another letter found at a fixed number of positions later in the alphabet.",
+    "displacement": "Displacement",
+    "exchange": ["Original", "Encrypted"]
+  },
+  "es": {
+    "intro": "Es un tipo de cifrado de sustitución en el que una letra del texto de origen se reemplaza por otra letra que se encuentra en un número fijo de posiciones más adelante en el alfabeto.",
+    "displacement": "Desplazamiento",
+    "exchange": ["Original", "Encriptado"]
+  }
+}
