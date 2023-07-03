@@ -2,58 +2,16 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/index.css">
-  <script src="index.js" type="module"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/normalize.css">
 
   <title>Cryptsar</title>
 </head>
 
-<!-- TODO: Reemplaza etiquetas img por div -->
-
 <body>
-  <div class="maxWidthPage">
-    <div class="heroImage"></div>
-    <header class="pageHeader"></header>
-    <main class="mainContent">
-      <h1 class="mainContent__title">Cryptsar</h1>
-      <img src="/assets/column.png" alt="" class="column column_left">
-      <img src="/assets/column.png" alt="" class="column column_right">
-      <div class="containerWidth">
-        <p id="introduction" class="introduction"></p>
-        <form>
-          <label for="" html="displacement"></label>
-          <input type="number" name="displacement" id="displacement" placeholder="3" min="0" max="27" value="3">
-        </form>
-        <section>
-          <header class="action">
-            <h2></h2>
-            <button class="action__button" aria-label="Cambiar a desencriptar mensaje">
-              <svg class="action__arrowBoth" xmlns="http://www.w3.org/2000/svg" width="800" height="800"
-                viewBox="0 0 24 24">
-                <path fill="#fff"
-                  d="M7.78 5.97a.75.75 0 0 0-1.06 0l-5.25 5.25a.75.75 0 0 0 0 1.06l5.25 5.25a.75.75 0 0 0 1.06-1.06L3.81 12.5h16.38l-3.97 3.97a.75.75 0 1 0 1.06 1.06l5.25-5.25a.75.75 0 0 0 0-1.06l-5.25-5.25a.75.75 0 1 0-1.06 1.06L20.19 11H3.81l3.97-3.97a.75.75 0 0 0 0-1.06z" />
-              </svg>
-            </button>
-            <h2></h2>
-          </header>
-          <div class="clipboardContainer">
-            <div>
-              <div class="rope rope_top"></div>
-              <textarea name="" id="" cols="30" rows="10" class="clipboard"></textarea>
-            </div>
-            <div>
-              <div class="rope rope_bottom"></div>
-              <textarea name="" id="" cols="30" rows="10" class="clipboard"></textarea>
-            </div>
-          </div>
-        </section>
-        </sectio>
-    </main>
-  </div>
+  <div id="app"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>

@@ -24,7 +24,7 @@ form {
   line-height: 1.75rem;
 }
 
-[html="displacement"] {
+label[for="displacement"] {
   margin-right: 1.375rem;
 }
 
@@ -120,7 +120,7 @@ input[type="number"]::-webkit-outer-spin-button {
   max-width: var(--max-w-page);
   width: 100%;
   height: 100%;
-  background: url("/assets/spy.jpg") top center / cover no-repeat;
+  background: url("/spy.jpg") top center / cover no-repeat;
 }
 
 .heroImage::before {
