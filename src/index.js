@@ -1,4 +1,4 @@
-import texts from "./assets/texts.json" assert { type: "json" };
+import texts from "../assets/texts.json" assert { type: "json" };
 
 const $ = (selector) => document.querySelector(selector);
 
