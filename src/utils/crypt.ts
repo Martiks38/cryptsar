@@ -39,7 +39,7 @@ export const encrypt = ({ message, displacement }: CryptProps) => {
     const lowerChar = letter.toLowerCase().charCodeAt(0)
     const codeZ = 'z'.charCodeAt(0)
 
-    // Si el código de la letra es mayor al código al de la última.
+    // Si el código de la letra más el desplazamiento es mayor al código al de la última del abecedario.
     // Entonces, hay que restar el tamaño del alfabeto.
     //  De lo contrario, solo sumar el desplazamiento
     const isOverFlow = lowerChar + displacement > codeZ
@@ -54,8 +54,8 @@ export const decrypt = ({ message, displacement }: CryptProps) => {
     const lowerChar = letter.toLowerCase().charCodeAt(0)
     const codeA = 'a'.charCodeAt(0)
 
-    // Si el código de la letra es mayor al código al de la última.
-    // Entonces, hay que restar el tamaño del alfabeto.
+    // Si el código de la letra menos el desplazamiento es menor al código de la última
+    // Entonces, hay que restar el tamaño del alfabeto
     //  De lo contrario, solo sumar el desplazamiento
     const isOverFlow = lowerChar - displacement < codeA
 
@@ -70,6 +70,9 @@ export const encryptSpanish = ({ message, displacement }: CryptProps) => {
     const sizeAlphabet = alphabetSpanish.length
     const codeZ = 'Z'.charCodeAt(0)
 
+    // Si el código de la letra más el desplazamiento es mayor al código de la última del abecedario.
+    // Entonces, hay que restar el tamaño del alfabeto.
+    //  De lo contrario, solo sumar el desplazamiento
     const isOverFlow = letterInd + displacement >= sizeAlphabet
     const indNewLetter = displacement + letterInd + (isOverFlow ? -sizeAlphabet : 0)
 
@@ -87,6 +90,9 @@ export const decryptSpanish = ({ message, displacement }: CryptProps) => {
     const sizeAlphabet = alphabetSpanish.length
     const codeZ = 'Z'.charCodeAt(0)
 
+    // Si el código de la letra menos el desplazamiento es menor al código de la última
+    // Entonces, hay que restar el tamaño del alfabeto
+    //  De lo contrario, solo sumar el desplazamiento
     const isOverFlow = letterInd - displacement < 0
     const indNewLetter = letterInd - displacement + (isOverFlow ? sizeAlphabet : 0)
 
