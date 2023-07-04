@@ -1,16 +1,18 @@
-import './style.css'
-import texts from './assets/texts.json'
 import { Cipher } from './components/Cipher'
 
+import { texts } from './assets/texts.ts'
+
+import './style.css'
+
 export default function HomePage() {
-  const $ = (selector: string) => document.querySelector(selector)
+  let lang = window.localStorage.getItem('lang')
 
-  const lang = window.localStorage.getItem('lang')
-  const isEncrypt = window.localStorage.getItem('encrypt')
+  if (!lang) {
+    window.localStorage.setItem('lang', 'en')
+    lang = 'en'
+  }
 
-  if (!lang) window.localStorage.setItem('lang', 'en')
-
-  const { displacement, exchange, intro, labelButton } = lang === 'es' ? texts.es : texts.en
+  const { displacement, exchange, intro, labelButton } = texts[lang]
 
   return (
     <div className='maxWidthPage'>
@@ -33,10 +35,10 @@ export default function HomePage() {
               placeholder='3'
               min='0'
               max='27'
-              value={3}
+              defaultValue={3}
             />
           </div>
-          <Cipher exchange={exchange} labelButton={labelButton} />
+          <Cipher exchange={exchange} labelButton={labelButton} lang={lang} />
         </div>
       </main>
     </div>
