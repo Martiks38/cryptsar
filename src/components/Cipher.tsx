@@ -83,11 +83,23 @@ export function Cipher({ displacementValue, exchange, labelButton, lang }: Ciphe
       <div className={`clipboardContainer ${isEncrypt ? '' : 'clipboardContainer_reverse'}`}>
         <div>
           <div className={`rope rope__top ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea onChange={compilerText} cols={30} rows={10} className='clipboard'></textarea>
+          <textarea
+            onChange={compilerText}
+            cols={30}
+            rows={10}
+            className='clipboard'
+            readOnly={!isEncrypt}
+          ></textarea>
         </div>
         <div>
           <div className={`rope rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea onChange={compilerText} cols={30} rows={10} className='clipboard'></textarea>
+          <textarea
+            onChange={compilerText}
+            cols={30}
+            rows={10}
+            className='clipboard'
+            readOnly={isEncrypt}
+          ></textarea>
         </div>
       </div>
     </section>

@@ -161,18 +161,6 @@ input[type='number']::-webkit-outer-spin-button {
   width: auto;
 }
 
-.clipboardContainer > div:nth-child(2) textarea {
-  pointer-events: none;
-}
-
-.clipboardContainer.clipboardContainer_reverse > div:first-child textarea {
-  pointer-events: none;
-}
-
-.clipboardContainer.clipboardContainer_reverse > div:nth-child(2) textarea {
-  pointer-events: all;
-}
-
 .clipboardContainer > div:first-child::before,
 .clipboardContainer > div:first-child::after,
 .clipboardContainer > div:nth-child(2)::before,
@@ -228,6 +216,7 @@ input[type='number']::-webkit-outer-spin-button {
   border-color: #947145;
   border-style: groove ridge ridge groove;
   border-radius: 4px;
+  outline-width: 0;
   resize: none;
 }
 
