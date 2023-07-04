@@ -56,6 +56,10 @@ input[type='number']::-webkit-outer-spin-button {
 
 .pageHeader {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  padding: 0 2em;
   width: 100%;
   height: var(--header-height);
   background-color: var(--bg-column);
@@ -69,6 +73,24 @@ input[type='number']::-webkit-outer-spin-button {
   height: 10%;
   width: 100%;
   background-image: linear-gradient(transparent 10%, rgb(0 0 0 / 0.6));
+}
+
+.pageHeader__button {
+  --size-button: 2rem;
+
+  padding: 0;
+  width: var(--size-button);
+  height: var(--size-button);
+  border: solid 2px #717171;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.pageHeader__button img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 40% center;
 }
 
 .mainContent {

@@ -1,21 +1,28 @@
+import { ChangeEvent, useEffect, useState } from 'react'
+
 import { Cipher } from './components/Cipher'
 
 import { texts } from './assets/texts.ts'
 
 import './style.css'
-import { ChangeEvent, useState } from 'react'
 
 export default function HomePage() {
   const [displacementValue, setDisplacementValue] = useState(3)
+  const [lang, setLang] = useState('en')
 
-  let lang = window.localStorage.getItem('lang')
+  useEffect(() => {
+    const lang = window.localStorage.getItem('lang')
 
-  if (!lang) {
-    window.localStorage.setItem('lang', 'en')
-    lang = 'en'
+    if (lang !== null) setLang(lang)
+  }, [])
+
+  const { displacement, exchange, intro, labelActionButton, language } = texts[lang]
+  const { labelLangButton, flagAlt } = language
+  const isLanguageEnglish = lang === 'en'
+
+  const changeLanguage = () => {
+    setLang((currentLang) => (currentLang === 'en' ? 'es' : 'en'))
   }
-
-  const { displacement, exchange, intro, labelButton } = texts[lang]
 
   const changeDisplacement = (ev: ChangeEvent<HTMLInputElement>) => {
     const value = Number(ev.currentTarget.value)
@@ -25,12 +32,12 @@ export default function HomePage() {
       return
     }
 
-    if (lang === 'en' && value > 26) {
+    if (isLanguageEnglish && value > 26) {
       setDisplacementValue(26)
       return
     }
 
-    if (lang === 'es' && value > 27) {
+    if (isLanguageEnglish && value > 27) {
       setDisplacementValue(27)
       return
     }
@@ -43,7 +50,15 @@ export default function HomePage() {
   return (
     <div className='maxWidthPage'>
       <div className='heroImage'></div>
-      <header className='pageHeader'></header>
+      <header className='pageHeader'>
+        <button
+          onClick={changeLanguage}
+          className='pageHeader__button'
+          aria-label={labelLangButton}
+        >
+          <img src={isLanguageEnglish ? '/en.png' : '/es.png'} alt={flagAlt} />
+        </button>
+      </header>
       <main className='mainContent'>
         <h1 className='mainContent__title'>Cryptsar</h1>
         <img src='/column.png' alt='' className='column column_left' />
@@ -68,7 +83,7 @@ export default function HomePage() {
           <Cipher
             displacementValue={displacementValue}
             exchange={exchange}
-            labelButton={labelButton}
+            labelActionButton={labelActionButton}
             lang={lang}
           />
         </div>

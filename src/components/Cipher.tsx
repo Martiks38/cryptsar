@@ -4,16 +4,16 @@ import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt
 type CipherProps = {
   displacementValue: number
   exchange: string[]
-  labelButton: string[]
+  labelActionButton: string[]
   lang: string
 }
 
-export function Cipher({ displacementValue, exchange, labelButton, lang }: CipherProps) {
+export function Cipher({ displacementValue, exchange, labelActionButton, lang }: CipherProps) {
   const [isEncrypt, setIsEncrypt] = useState(true)
   const cryptTimeoutId = useRef<number | undefined>(undefined)
 
   const [titleOriginal, titleEncrypt] = exchange
-  const currentLabelButton = labelButton[isEncrypt ? 0 : 1]
+  const currentlabelActionButton = labelActionButton[isEncrypt ? 0 : 1]
 
   const changeAction = () => {
     const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
@@ -64,7 +64,11 @@ export function Cipher({ displacementValue, exchange, labelButton, lang }: Ciphe
     <section>
       <header className={`action ${isEncrypt ? '' : 'action_rowReverse'}`}>
         <h2>{titleOriginal}</h2>
-        <button className='action__button' aria-label={currentLabelButton} onClick={changeAction}>
+        <button
+          className='action__button'
+          aria-label={currentlabelActionButton}
+          onClick={changeAction}
+        >
           <svg
             className='action__arrowBoth'
             xmlns='http://www.w3.org/2000/svg'
