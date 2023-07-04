@@ -1,17 +1,19 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
 
 type CipherProps = {
+  displacementValue: number
   exchange: string[]
   labelButton: string[]
   lang: string
 }
 
-export function Cipher({ exchange, lang }: CipherProps) {
+export function Cipher({ displacementValue, exchange, labelButton, lang }: CipherProps) {
   const [isEncrypt, setIsEncrypt] = useState(true)
   const cryptTimeoutId = useRef<number | undefined>(undefined)
 
   const [titleOriginal, titleEncrypt] = exchange
+  const currentLabelButton = labelButton[isEncrypt ? 0 : 1]
 
   const changeAction = () => {
     const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
@@ -23,25 +25,13 @@ export function Cipher({ exchange, lang }: CipherProps) {
     if (clipboard instanceof HTMLTextAreaElement) clipboard.focus()
   }
 
-  const encryptText = (ev: ChangeEvent<HTMLTextAreaElement>) => {
-    const message = ev.currentTarget.value
-    const displacementInput = document.querySelector<HTMLInputElement>("input[type='number']")
-
-    let displacement = 0
-
-    if (displacementInput instanceof HTMLInputElement) {
-      const value = Number(displacementInput.value)
-      const sizeAlphabet = lang === 'es' ? 27 : 26
-
-      if (value >= 0 && value <= sizeAlphabet) displacement = value
-    }
+  const cryptAction = (message: string) => {
+    const data = { displacement: displacementValue, message }
 
     if (cryptTimeoutId.current) window.clearTimeout(cryptTimeoutId.current)
 
-    const data = { displacement, message }
     const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
     const clipboard = clipboards[isEncrypt ? 1 : 0]
-
     if (isEncrypt) {
       cryptTimeoutId.current = window.setTimeout(() => {
         const encryptedText = lang === 'en' ? encrypt(data) : encryptSpanish(data)
@@ -57,15 +47,24 @@ export function Cipher({ exchange, lang }: CipherProps) {
     }
   }
 
+  const compilerText = (ev: ChangeEvent<HTMLTextAreaElement>) => {
+    const message = ev.currentTarget.value
+
+    cryptAction(message)
+  }
+
+  useEffect(() => {
+    const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
+    const message = clipboards[0].value
+
+    cryptAction(message)
+  }, [displacementValue])
+
   return (
     <section>
       <header className={`action ${isEncrypt ? '' : 'action_rowReverse'}`}>
         <h2>{titleOriginal}</h2>
-        <button
-          className='action__button'
-          aria-label='Cambiar a desencriptar mensaje'
-          onClick={changeAction}
-        >
+        <button className='action__button' aria-label={currentLabelButton} onClick={changeAction}>
           <svg
             className='action__arrowBoth'
             xmlns='http://www.w3.org/2000/svg'
@@ -84,11 +83,11 @@ export function Cipher({ exchange, lang }: CipherProps) {
       <div className={`clipboardContainer ${isEncrypt ? '' : 'clipboardContainer_reverse'}`}>
         <div>
           <div className={`rope rope__top ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea onChange={encryptText} cols={30} rows={10} className='clipboard'></textarea>
+          <textarea onChange={compilerText} cols={30} rows={10} className='clipboard'></textarea>
         </div>
         <div>
           <div className={`rope rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea onChange={encryptText} cols={30} rows={10} className='clipboard'></textarea>
+          <textarea onChange={compilerText} cols={30} rows={10} className='clipboard'></textarea>
         </div>
       </div>
     </section>

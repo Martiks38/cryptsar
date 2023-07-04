@@ -3,8 +3,11 @@ import { Cipher } from './components/Cipher'
 import { texts } from './assets/texts.ts'
 
 import './style.css'
+import { ChangeEvent, useState } from 'react'
 
 export default function HomePage() {
+  const [displacementValue, setDisplacementValue] = useState(3)
+
   let lang = window.localStorage.getItem('lang')
 
   if (!lang) {
@@ -13,6 +16,29 @@ export default function HomePage() {
   }
 
   const { displacement, exchange, intro, labelButton } = texts[lang]
+
+  const changeDisplacement = (ev: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(ev.currentTarget.value)
+
+    if (value < 0) {
+      setDisplacementValue(0)
+      return
+    }
+
+    if (lang === 'en' && value > 26) {
+      setDisplacementValue(26)
+      return
+    }
+
+    if (lang === 'es' && value > 27) {
+      setDisplacementValue(27)
+      return
+    }
+
+    // Filtra el cero a la izquierda luego de borrar el número actual de desplazamiento
+    ev.currentTarget.value = value.toString()
+    setDisplacementValue(value)
+  }
 
   return (
     <div className='maxWidthPage'>
@@ -35,10 +61,16 @@ export default function HomePage() {
               placeholder='3'
               min='0'
               max='27'
-              defaultValue={3}
+              onChange={changeDisplacement}
+              value={displacementValue}
             />
           </div>
-          <Cipher exchange={exchange} labelButton={labelButton} lang={lang} />
+          <Cipher
+            displacementValue={displacementValue}
+            exchange={exchange}
+            labelButton={labelButton}
+            lang={lang}
+          />
         </div>
       </main>
     </div>
