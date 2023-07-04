@@ -15,20 +15,19 @@ html {
   height: 100vh;
   background-color: #222;
   color: #fff;
-  font-family: Bookman Old Style, Roboto, Oxygen, "Open Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: Bookman Old Style, Roboto, Oxygen, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-form {
+.displacement {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
 
-label[for="displacement"] {
+.displacement__text {
   margin-right: 1.375rem;
 }
 
-input[type="number"] {
+input[type='number'] {
   padding: 0.1em 0;
   width: 6ch;
   background-color: rgb(0 0 0 / 0.4);
@@ -38,13 +37,13 @@ input[type="number"] {
   text-align: center;
 }
 
-input[type="number"]::placeholder {
+input[type='number']::placeholder {
   color: #fff;
   opacity: 0.85;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -63,7 +62,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .pageHeader::before {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -120,11 +119,11 @@ input[type="number"]::-webkit-outer-spin-button {
   max-width: var(--max-w-page);
   width: 100%;
   height: 100%;
-  background: url("/spy.jpg") top center / cover no-repeat;
+  background: url('/spy.jpg') top center / cover no-repeat;
 }
 
 .heroImage::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -143,9 +142,14 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Clipboard */
 .clipboardContainer {
   display: flex;
+  flex-direction: row;
   gap: 1em;
   justify-content: center;
   align-items: center;
+}
+
+.clipboardContainer.clipboardContainer_reverse {
+  flex-direction: row-reverse;
 }
 
 .clipboardContainer > div {
@@ -157,11 +161,23 @@ input[type="number"]::-webkit-outer-spin-button {
   width: auto;
 }
 
+.clipboardContainer > div:nth-child(2) textarea {
+  pointer-events: none;
+}
+
+.clipboardContainer.clipboardContainer_reverse > div:first-child textarea {
+  pointer-events: none;
+}
+
+.clipboardContainer.clipboardContainer_reverse > div:nth-child(2) textarea {
+  pointer-events: all;
+}
+
 .clipboardContainer > div:first-child::before,
 .clipboardContainer > div:first-child::after,
 .clipboardContainer > div:nth-child(2)::before,
 .clipboardContainer > div:nth-child(2)::after {
-  content: "";
+  content: '';
   position: absolute;
   width: var(--size-hole);
   height: var(--size-hole);
@@ -178,6 +194,18 @@ input[type="number"]::-webkit-outer-spin-button {
 .clipboardContainer > div:first-child::before,
 .clipboardContainer > div:first-child::after {
   right: calc(0.7rem - var(--size-hole) / 2);
+}
+
+.clipboardContainer.clipboardContainer_reverse > div:nth-child(2)::before,
+.clipboardContainer.clipboardContainer_reverse > div:nth-child(2)::after {
+  left: auto;
+  right: calc(0.7rem - var(--size-hole) / 2);
+}
+
+.clipboardContainer.clipboardContainer_reverse > div:first-child::before,
+.clipboardContainer.clipboardContainer_reverse > div:first-child::after {
+  left: calc(0.7rem - var(--size-hole) / 2);
+  right: auto;
 }
 
 .clipboardContainer > div:first-child::before,
@@ -221,6 +249,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .rope {
   --rope-height: 0.5rem;
+  --translateX: 70%;
 
   position: absolute;
   margin: 0 auto;
@@ -240,22 +269,43 @@ input[type="number"]::-webkit-outer-spin-button {
   z-index: 2;
 }
 
-.rope.rope_top {
-  top: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-  right: 0;
-  transform: translateX(70%);
+.rope.rope_reverse {
+  --translateX: -70%;
 }
 
-.rope.rope_bottom {
+.rope.rope__top {
+  top: calc(var(--position-hole) + calc(var(--size-hole) / 4));
+  right: 0;
+  transform: translateX(var(--translateX));
+}
+
+.rope.rope__bottom {
   bottom: calc(var(--position-hole) + calc(var(--size-hole) / 4));
   left: 0;
-  transform: translateX(-70%);
+  transform: translateX(calc(-1 * var(--translateX)));
+}
+
+.rope.rope__top.rope_reverse {
+  left: 0;
+  right: auto;
+}
+
+.rope.rope__bottom.rope_reverse {
+  left: auto;
+  right: 0;
 }
 
 .action {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.action.action_rowReverse {
+  flex-direction: row-reverse;
 }
 
 .action > h2 {
@@ -265,8 +315,13 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .action__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
-  border-width: 0;
+  border-width: 1px;
+  border-color: transparent;
+  border-radius: 4px;
 }
 
 .action__arrowBoth {
@@ -274,4 +329,18 @@ input[type="number"]::-webkit-outer-spin-button {
 
   width: var(--size-arrow);
   height: var(--size-arrow);
+}
+
+@media (hover: none) {
+  .action__button:hover {
+    border: solid 1px #fff;
+    background-color: rgba(39, 37, 37, 0.6);
+  }
+}
+
+@media (hover: hover) {
+  .action__button:hover {
+    border: solid 1px #fff;
+    background-color: rgba(39, 37, 37, 0.6);
+  }
 }
