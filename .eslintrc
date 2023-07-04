@@ -1,6 +1,16 @@
 {
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
-  "extends": ["./node_modules/standard/eslintrc.json"],
-  "rules": {}
+  "extends": ["standard"],
+  "rules": {
+    "space-before-function-paren": ["error", "never"]
+  },
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  }
 }
