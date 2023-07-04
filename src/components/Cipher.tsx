@@ -1,22 +1,60 @@
-import { useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
+import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
 
 type CipherProps = {
   exchange: string[]
   labelButton: string[]
+  lang: string
 }
 
-export function Cipher({ exchange }: CipherProps) {
-  const [titleOriginal, titleEncrypt] = exchange
+export function Cipher({ exchange, lang }: CipherProps) {
   const [isEncrypt, setIsEncrypt] = useState(true)
+  const cryptTimeoutId = useRef<number | undefined>(undefined)
+
+  const [titleOriginal, titleEncrypt] = exchange
 
   const changeAction = () => {
     const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
 
-    setIsEncrypt((prevAction) => !prevAction)
-
     const clipboard = clipboards[isEncrypt ? 1 : 0]
 
+    setIsEncrypt((prevAction) => !prevAction)
+
     if (clipboard instanceof HTMLTextAreaElement) clipboard.focus()
+  }
+
+  const encryptText = (ev: ChangeEvent<HTMLTextAreaElement>) => {
+    const message = ev.currentTarget.value
+    const displacementInput = document.querySelector<HTMLInputElement>("input[type='number']")
+
+    let displacement = 0
+
+    if (displacementInput instanceof HTMLInputElement) {
+      const value = Number(displacementInput.value)
+      const sizeAlphabet = lang === 'es' ? 27 : 26
+
+      if (value >= 0 && value <= sizeAlphabet) displacement = value
+    }
+
+    if (cryptTimeoutId.current) window.clearTimeout(cryptTimeoutId.current)
+
+    const data = { displacement, message }
+    const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
+    const clipboard = clipboards[isEncrypt ? 1 : 0]
+
+    if (isEncrypt) {
+      cryptTimeoutId.current = window.setTimeout(() => {
+        const encryptedText = lang === 'en' ? encrypt(data) : encryptSpanish(data)
+
+        clipboard.value = encryptedText
+      }, 600)
+    } else {
+      cryptTimeoutId.current = window.setTimeout(() => {
+        const encryptedText = lang === 'en' ? decrypt(data) : decryptSpanish(data)
+
+        clipboard.value = encryptedText
+      }, 600)
+    }
   }
 
   return (
@@ -46,11 +84,11 @@ export function Cipher({ exchange }: CipherProps) {
       <div className={`clipboardContainer ${isEncrypt ? '' : 'clipboardContainer_reverse'}`}>
         <div>
           <div className={`rope rope__top ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea cols={30} rows={10} className='clipboard'></textarea>
+          <textarea onChange={encryptText} cols={30} rows={10} className='clipboard'></textarea>
         </div>
         <div>
           <div className={`rope rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea cols={30} rows={10} className='clipboard'></textarea>
+          <textarea onChange={encryptText} cols={30} rows={10} className='clipboard'></textarea>
         </div>
       </div>
     </section>
