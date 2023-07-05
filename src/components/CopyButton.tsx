@@ -19,9 +19,9 @@ export function CopyButton({ errorMessage, message, visible }: CopyButtonProps) 
   }, [])
 
   const visiblePopup = (msg: string) => {
-    return setTimeout(() => {
+    return window.setTimeout(() => {
       setPopupMessage(<span>{msg}</span>)
-      closePopup.current = setTimeout(() => setPopupMessage(null), 300)
+      closePopup.current = window.setTimeout(() => setPopupMessage(null), 300)
 
       isVisibleMessage.current = false
     }, 1500)
