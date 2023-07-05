@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
+
+import { CopyButton } from './CopyButton'
+
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
-import { CopyButton } from './Clipboard/CopyButton'
 
 type CipherProps = {
   displacementValue: number
