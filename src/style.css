@@ -240,6 +240,7 @@ input[type='number']::-webkit-outer-spin-button {
 .clipboard {
   position: relative;
   padding: 0.85em;
+  padding-right: 2.8rem;
   height: inherit;
   width: 100%;
   background-color: #0b0b0b;
@@ -276,6 +277,27 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 0.3125rem;
 }
 
+.clipboard__copy {
+  --size-copy: 2.4rem;
+
+  position: absolute;
+  bottom: 1.6rem;
+  right: 2.2rem;
+  width: var(--size-copy);
+  height: var(--size-copy);
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 50%;
+}
+
+.clipboard__copy.hidden {
+  visibility: hidden;
+}
+
+.clipboard__copy:hover {
+  background-color: rgb(255 255 255 / 0.2);
+}
+
 .containerWidth {
   display: flex;
   flex-direction: column;
@@ -290,7 +312,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .containerWidth > section {
-  margin-top: auto;
+  position: relative;
 }
 
 .rope {
@@ -385,7 +407,38 @@ input[type='number']::-webkit-outer-spin-button {
   height: var(--size-arrow);
 }
 
+#messagePortal {
+  position: absolute;
+
+  bottom: 2.2rem;
+  left: 2rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #717171;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  font-size: clamp(1rem, 0.5714rem + 1.9048vw, 1.5rem);
+  line-height: 1.5rem;
+  opacity: 0;
+  transition-property: bottom, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#messagePortal p {
+  margin: 0;
+}
+
+#messagePortal:has(p) {
+  bottom: 3rem;
+  opacity: 1;
+}
+
 @media (min-width: 48.75rem) {
+  #messagePortal {
+    line-height: 2rem;
+  }
+
   .description {
     width: auto;
     margin: 0;

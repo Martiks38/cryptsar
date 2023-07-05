@@ -1,14 +1,24 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
+import { CopyButton } from './Clipboard/CopyButton'
 
 type CipherProps = {
   displacementValue: number
+  errorMessage: string
   exchange: string[]
   labelActionButton: string[]
   lang: string
+  message: string
 }
 
-export function Cipher({ displacementValue, exchange, labelActionButton, lang }: CipherProps) {
+export function Cipher({
+  displacementValue,
+  errorMessage,
+  exchange,
+  labelActionButton,
+  lang,
+  message
+}: CipherProps) {
   const [isEncrypt, setIsEncrypt] = useState(true)
   const cryptTimeoutId = useRef<number | undefined>(undefined)
 
@@ -70,6 +80,7 @@ export function Cipher({ displacementValue, exchange, labelActionButton, lang }:
           onClick={changeAction}
         >
           <svg
+            aria-hidden='true'
             className='action__arrowBoth'
             xmlns='http://www.w3.org/2000/svg'
             width='800'
@@ -94,6 +105,7 @@ export function Cipher({ displacementValue, exchange, labelActionButton, lang }:
             className='clipboard'
             readOnly={!isEncrypt}
           ></textarea>
+          {<CopyButton errorMessage={errorMessage} message={message} visible={isEncrypt} />}
         </div>
         <div>
           <div className={`rope rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}></div>
@@ -104,8 +116,10 @@ export function Cipher({ displacementValue, exchange, labelActionButton, lang }:
             className='clipboard'
             readOnly={isEncrypt}
           ></textarea>
+          <CopyButton errorMessage={errorMessage} message={message} visible={!isEncrypt} />
         </div>
       </div>
+      <div id='messagePortal' aria-describedby='cryptText'></div>
     </section>
   )
 }

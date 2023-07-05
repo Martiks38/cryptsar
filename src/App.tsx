@@ -16,7 +16,8 @@ export default function HomePage() {
     if (lang !== null) setLang(lang)
   }, [])
 
-  const { displacement, exchange, intro, labelActionButton, language } = texts[lang]
+  const { displacement, errorMessage, exchange, intro, labelActionButton, language, message } =
+    texts[lang]
   const { labelLangButton, flagAlt } = language
   const isLanguageEnglish = lang === 'en'
 
@@ -56,7 +57,7 @@ export default function HomePage() {
           className='pageHeader__button'
           aria-label={labelLangButton}
         >
-          <img src={isLanguageEnglish ? '/en.png' : '/es.png'} alt={flagAlt} />
+          <img src={isLanguageEnglish ? '/en.png' : '/es.png'} alt={flagAlt} aria-hidden='true' />
         </button>
       </header>
       <main className='mainContent'>
@@ -85,9 +86,11 @@ export default function HomePage() {
           </div>
           <Cipher
             displacementValue={displacementValue}
+            errorMessage={errorMessage}
             exchange={exchange}
             labelActionButton={labelActionButton}
             lang={lang}
+            message={message}
           />
         </div>
       </main>
