@@ -63,8 +63,14 @@ export const decrypt = ({ message, displacement }: CryptProps) => {
   })
 }
 
+const removeAccents = (str: string) => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
+
 export const encryptSpanish = ({ message, displacement }: CryptProps) => {
-  return message.replace(/[a-zñ]/gi, (letter) => {
+  const normalizeMessage = removeAccents(message)
+  console.log({ message, normalizeMessage })
+  return normalizeMessage.replace(/[a-zñ]/gi, (letter) => {
     const letterInd = alphabetSpanish.findIndex((l) => l.toUpperCase() === letter)
 
     const sizeAlphabet = alphabetSpanish.length
@@ -84,7 +90,9 @@ export const encryptSpanish = ({ message, displacement }: CryptProps) => {
 }
 
 export const decryptSpanish = ({ message, displacement }: CryptProps) => {
-  return message.replace(/[a-zñ]/gi, (letter) => {
+  const normalizeMessage = removeAccents(message)
+
+  return normalizeMessage.replace(/[a-zñ]/gi, (letter) => {
     const letterInd = alphabetSpanish.findIndex((l) => l.toUpperCase() === letter)
 
     const sizeAlphabet = alphabetSpanish.length
