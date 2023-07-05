@@ -1,13 +1,9 @@
 # Cryptsar
 
-Aplicación para encriptar y desencriptar textos (español/inglés) empleando el cifrado César.
+Aplicación para encriptar y desencriptar textos (español o inglés) empleando el cifrado César o cifrado por desplazamiento.
 
 ## Stack
 
 - HTML
 - CSS
-- JavaScript
-
-## TODO
-
-- [ ] Añadir traducciones aria-label
+- TypeScript
