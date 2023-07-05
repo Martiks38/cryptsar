@@ -109,6 +109,8 @@ export function Cipher({
             rows={10}
             className='clipboard'
             readOnly={!isEncrypt}
+            autoCorrect='off'
+            spellCheck='false'
           ></textarea>
           {<CopyButton errorMessage={errorMessage} message={message} visible={isEncrypt} />}
         </div>
@@ -120,6 +122,8 @@ export function Cipher({
             rows={10}
             className='clipboard'
             readOnly={isEncrypt}
+            autoCorrect='off'
+            spellCheck='false'
           ></textarea>
           <CopyButton errorMessage={errorMessage} message={message} visible={!isEncrypt} />
         </div>
