@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode, useRef, useState } from 'react'
+import { MouseEvent, ReactNode, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 type CopyButtonProps = {
@@ -10,6 +10,22 @@ type CopyButtonProps = {
 export function CopyButton({ errorMessage, message, visible }: CopyButtonProps) {
   const [popupMessage, setPopupMessage] = useState<ReactNode | null>(null)
   const isVisibleMessage = useRef(false)
+  const closePopup = useRef<number | undefined>(undefined)
+
+  useEffect(() => {
+    return () => {
+      if (closePopup.current) clearTimeout(closePopup.current)
+    }
+  }, [])
+
+  const visiblePopup = (msg: string) => {
+    return setTimeout(() => {
+      setPopupMessage(<span>{msg}</span>)
+      closePopup.current = setTimeout(() => setPopupMessage(null), 300)
+
+      isVisibleMessage.current = false
+    }, 1500)
+  }
 
   const copyText = (ev: MouseEvent<HTMLButtonElement>) => {
     const btn = ev.currentTarget
@@ -29,22 +45,14 @@ export function CopyButton({ errorMessage, message, visible }: CopyButtonProps) 
 
           setPopupMessage((<p>{message}</p>) as unknown as ReactNode)
 
-          setTimeout(() => {
-            setPopupMessage(<span>{message}</span>)
-            setTimeout(() => setPopupMessage(null), 300)
-
-            isVisibleMessage.current = false
-          }, 1500)
+          closePopup.current = visiblePopup(message)
 
           isVisibleMessage.current = true
         })
         .catch(() => {
-          setTimeout(() => {
-            setPopupMessage(<span>{errorMessage}</span>)
-            setTimeout(() => setPopupMessage(null), 300)
+          setPopupMessage(<p>{errorMessage}</p>)
 
-            isVisibleMessage.current = false
-          }, 1500)
+          closePopup.current = visiblePopup(message)
         })
     }
   }
