@@ -1,6 +1,6 @@
 :root {
   --max-w-page: 90rem;
-  --max-w-container: 40rem;
+  --max-w-container: 50rem;
   --header-height: 3.125rem;
   --bg-column: #e4e2dd;
   --bg-column-shadow: #000;
@@ -253,6 +253,27 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 4px;
   outline-width: 0;
   resize: none;
+}
+
+.clipboard::-webkit-scrollbar {
+  width: 0.625rem;
+}
+
+.clipboard::-webkit-scrollbar-track {
+  background-color: rgb(148 113 6);
+}
+
+.clipboard::-webkit-scrollbar-thumb {
+  background-image: repeating-linear-gradient(
+    30deg,
+    #dab086,
+    #dab086 10%,
+    #dab086 16%,
+    #c59b70 20%,
+    #906438 24%,
+    rgb(0 0 0 / 0.4) 26%
+  );
+  border-radius: 0.3125rem;
 }
 
 .containerWidth {
