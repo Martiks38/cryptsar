@@ -4,6 +4,8 @@
   --header-height: 3.125rem;
   --bg-column: #e4e2dd;
   --bg-column-shadow: #000;
+  --grey: #717171;
+  --letter-color: #fff;
 }
 
 * {
@@ -14,7 +16,7 @@ body,
 html {
   min-height: 100vh;
   background-color: #222;
-  color: #fff;
+  color: var(--letter-color);
   font-family: Bookman Old Style, Roboto, Oxygen, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -82,7 +84,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding: 0;
   width: var(--size-button);
   height: var(--size-button);
-  border: solid 2px #717171;
+  border: solid 2px var(--grey);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -167,137 +169,6 @@ input[type='number']::-webkit-outer-spin-button {
   line-height: 1.75rem;
 }
 
-/* Clipboard */
-.clipboardContainer {
-  --position-hole: 20%;
-  --translate: var(--position-hole);
-
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  justify-content: center;
-  align-items: center;
-}
-
-.clipboardContainer.clipboardContainer_reverse {
-  flex-direction: column-reverse;
-  --translate: calc(-1 * var(--position-hole));
-}
-
-.clipboardContainer > div {
-  --size-hole: 1rem;
-
-  position: relative;
-  height: 250px;
-  width: auto;
-}
-
-.clipboardContainer > div:first-child::before,
-.clipboardContainer > div:first-child::after,
-.clipboardContainer > div:nth-child(2)::before,
-.clipboardContainer > div:nth-child(2)::after {
-  content: '';
-  position: absolute;
-  width: var(--size-hole);
-  height: var(--size-hole);
-  background-color: rgb(0 0 0);
-  border-radius: 50%;
-  z-index: 1;
-}
-
-.clipboardContainer > div:first-child::after,
-.clipboardContainer > div:nth-child(2)::after {
-  right: var(--position-hole);
-}
-
-.clipboardContainer > div:first-child::before,
-.clipboardContainer > div:nth-child(2)::before {
-  left: var(--position-hole);
-}
-
-.clipboardContainer > div:first-child::after,
-.clipboardContainer > div:first-child::before {
-  bottom: 0;
-}
-
-.clipboardContainer > div:nth-child(2)::after,
-.clipboardContainer > div:nth-child(2)::before {
-  top: 0;
-}
-
-.clipboardContainer.clipboardContainer_reverse > div:first-child::after,
-.clipboardContainer.clipboardContainer_reverse > div:first-child::before {
-  top: 0;
-  bottom: auto;
-}
-
-.clipboardContainer.clipboardContainer_reverse > div:nth-child(2)::after,
-.clipboardContainer.clipboardContainer_reverse > div:nth-child(2)::before {
-  top: auto;
-  bottom: 0;
-}
-
-.clipboard {
-  position: relative;
-  padding: 0.85em;
-  padding-right: 2.8rem;
-  height: inherit;
-  width: 100%;
-  background-color: #0b0b0b;
-  font-size: 1rem;
-  font-size: clamp(1rem, 0.7rem + 1.3333vw, 1.5rem);
-  line-height: 1.5rem;
-  color: rgb(255 255 255 / 0.85);
-  border-width: 1.4rem;
-  border-color: #947145;
-  border-style: groove ridge ridge groove;
-  border-radius: 4px;
-  outline-width: 0;
-  resize: none;
-}
-
-.clipboard::-webkit-scrollbar {
-  width: 0.625rem;
-}
-
-.clipboard::-webkit-scrollbar-track {
-  background-color: rgb(148 113 6);
-}
-
-.clipboard::-webkit-scrollbar-thumb {
-  background-image: repeating-linear-gradient(
-    30deg,
-    #dab086,
-    #dab086 10%,
-    #dab086 16%,
-    #c59b70 20%,
-    #906438 24%,
-    rgb(0 0 0 / 0.4) 26%
-  );
-  border-radius: 0.3125rem;
-}
-
-.clipboard__copy {
-  --size-copy: 2.4rem;
-
-  position: absolute;
-  bottom: 1.6rem;
-  right: 2.2rem;
-  width: var(--size-copy);
-  height: var(--size-copy);
-  background-color: transparent;
-  border-width: 0;
-  border-radius: 50%;
-}
-
-.clipboard__copy.hidden {
-  visibility: hidden;
-}
-
-.clipboard__copy:hover {
-  background-color: rgb(255 255 255 / 0.2);
-}
-
 .containerWidth {
   display: flex;
   flex-direction: column;
@@ -313,59 +184,6 @@ input[type='number']::-webkit-outer-spin-button {
 
 .containerWidth > section {
   position: relative;
-}
-
-.rope {
-  --rope-height: 0.5rem;
-  --translate-rope: calc(100% + 0.375rem);
-  --rotate-rope: rotate(90deg);
-
-  position: absolute;
-  margin: 0 auto;
-  width: 2.5rem;
-  height: var(--rope-height);
-  background-image: repeating-linear-gradient(
-    30deg,
-    #dab086,
-    #dab086 10%,
-    #dab086 16%,
-    #c59b70 20%,
-    #906438 24%,
-    rgb(0 0 0 / 0.4) 26%
-  );
-  border: solid 0.5px #000;
-  border-radius: calc(var(--rope-height) / 2);
-  z-index: 2;
-}
-
-.rope.rope_reverse {
-  --rotate-rope: rotate(-90deg);
-}
-
-.rope.rope__top {
-  left: calc(var(--position-hole) + 0.5rem);
-  bottom: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-  transform-origin: 0 50%;
-  transform: var(--rotate-rope) translateX(var(--translate-rope));
-}
-
-.rope.rope__bottom {
-  right: calc(var(--position-hole) + 0.5rem);
-  top: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-  transform-origin: 100% 50%;
-  transform: var(--rotate-rope) translateX(calc(-1 * var(--translate-rope)));
-}
-
-.rope.rope__top.rope_reverse {
-  top: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-  bottom: auto;
-  transform: var(--rotate-rope) translateX(calc(var(--translate-rope)));
-}
-
-.rope.rope__bottom.rope_reverse {
-  top: auto;
-  bottom: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-  transform: var(--rotate-rope) translateX(calc(-1 * var(--translate-rope)));
 }
 
 .action {
@@ -407,38 +225,7 @@ input[type='number']::-webkit-outer-spin-button {
   height: var(--size-arrow);
 }
 
-#messagePortal {
-  position: absolute;
-
-  bottom: 2.2rem;
-  left: 2rem;
-  padding: 0.4rem 0.8rem;
-  background-color: #717171;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  font-size: clamp(1rem, 0.5714rem + 1.9048vw, 1.5rem);
-  line-height: 1.5rem;
-  opacity: 0;
-  transition-property: bottom, opacity;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#messagePortal p {
-  margin: 0;
-}
-
-#messagePortal:has(p) {
-  bottom: 3rem;
-  opacity: 1;
-}
-
 @media (min-width: 48.75rem) {
-  #messagePortal {
-    line-height: 2rem;
-  }
-
   .description {
     width: auto;
     margin: 0;
@@ -463,97 +250,6 @@ input[type='number']::-webkit-outer-spin-button {
     margin-top: 0;
     margin-bottom: 0.35em;
   }
-
-  .clipboardContainer > div:first-child::after {
-    top: var(--position-hole);
-    right: calc(0.7rem - var(--size-hole) / 2);
-  }
-
-  .clipboardContainer > div:first-child::before {
-    bottom: var(--position-hole);
-    right: calc(0.7rem - var(--size-hole) / 2);
-    left: auto;
-  }
-
-  .clipboardContainer > div:nth-child(2)::before {
-    top: var(--position-hole);
-    left: calc(0.7rem - var(--size-hole) / 2);
-  }
-
-  .clipboardContainer > div:nth-child(2)::after {
-    top: auto;
-    bottom: var(--position-hole);
-    left: calc(0.7rem - var(--size-hole) / 2);
-  }
-
-  .clipboardContainer.clipboardContainer_reverse > div:first-child::after {
-    top: var(--position-hole);
-    left: calc(0.7rem - var(--size-hole) / 2);
-    right: auto;
-  }
-
-  .clipboardContainer.clipboardContainer_reverse > div:first-child::before {
-    top: auto;
-    bottom: var(--position-hole);
-    left: calc(0.7rem - var(--size-hole) / 2);
-    right: auto;
-  }
-
-  .clipboardContainer.clipboardContainer_reverse > div:nth-child(2)::after {
-    top: auto;
-    bottom: var(--position-hole);
-    right: calc(0.7rem - var(--size-hole) / 2);
-    left: auto;
-  }
-
-  .clipboardContainer.clipboardContainer_reverse > div:nth-child(2)::before {
-    top: var(--position-hole);
-    right: calc(0.7rem - var(--size-hole) / 2);
-    left: auto;
-  }
-
-  .clipboardContainer {
-    flex-direction: row;
-  }
-
-  .clipboardContainer.clipboardContainer_reverse {
-    flex-direction: row-reverse;
-  }
-
-  .rope {
-    --translate-rope: 70%;
-  }
-
-  .rope.rope_reverse {
-    --translate-rope: -70%;
-  }
-
-  .rope.rope__top {
-    top: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-    right: 0;
-    left: auto;
-    transform: translateX(var(--translate-rope));
-  }
-
-  .rope.rope__bottom {
-    top: auto;
-    bottom: calc(var(--position-hole) + calc(var(--size-hole) / 4));
-    left: 0;
-    right: auto;
-    transform: translateX(calc(-1 * var(--translate-rope)));
-  }
-
-  .rope.rope__top.rope_reverse {
-    left: 0;
-    right: auto;
-    transform: translateX(var(--translate-rope));
-  }
-
-  .rope.rope__bottom.rope_reverse {
-    left: auto;
-    right: 0;
-    transform: translateX(calc(-1 * var(--translate-rope)));
-  }
 }
 
 @media (max-width: 65.5rem) {
@@ -577,7 +273,6 @@ input[type='number']::-webkit-outer-spin-button {
     max-width: 60rem;
   }
 
-  .clipboard,
   .displacement,
   .introduction {
     line-height: 2rem;
