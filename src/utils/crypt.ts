@@ -69,9 +69,9 @@ const removeAccents = (str: string) => {
 
 export const encryptSpanish = ({ message, displacement }: CryptProps) => {
   const normalizeMessage = removeAccents(message)
-  console.log({ message, normalizeMessage })
+
   return normalizeMessage.replace(/[a-zñ]/gi, (letter) => {
-    const letterInd = alphabetSpanish.findIndex((l) => l.toUpperCase() === letter)
+    const letterInd = alphabetSpanish.findIndex((l) => l === letter.toUpperCase())
 
     const sizeAlphabet = alphabetSpanish.length
     const codeZ = 'Z'.charCodeAt(0)
@@ -93,7 +93,7 @@ export const decryptSpanish = ({ message, displacement }: CryptProps) => {
   const normalizeMessage = removeAccents(message)
 
   return normalizeMessage.replace(/[a-zñ]/gi, (letter) => {
-    const letterInd = alphabetSpanish.findIndex((l) => l.toUpperCase() === letter)
+    const letterInd = alphabetSpanish.findIndex((l) => l === letter.toUpperCase())
 
     const sizeAlphabet = alphabetSpanish.length
     const codeZ = 'Z'.charCodeAt(0)
