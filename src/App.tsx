@@ -5,6 +5,7 @@ import { Cipher } from './components/Cipher'
 import { texts } from './assets/texts.ts'
 
 import './style.css'
+import './styles/displacement.css'
 
 export default function HomePage() {
   const [displacementValue, setDisplacementValue] = useState(3)
