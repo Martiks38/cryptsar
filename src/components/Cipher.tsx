@@ -1,11 +1,10 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 
-import { CopyButton } from './CopyButton'
-
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
 
 import '../styles/clipboard.css'
 import '../styles/actionBar.css'
+import { Clipboard } from './Clipboard'
 
 type CipherProps = {
   displacementValue: number
@@ -101,32 +100,20 @@ export function Cipher({
         <h2>{titleEncrypt}</h2>
       </header>
       <div className={`clipboardContainer ${isEncrypt ? '' : 'clipboardContainer_reverse'}`}>
-        <div>
-          <div className={`rope rope__top ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea
-            onChange={compilerText}
-            cols={30}
-            rows={10}
-            className='clipboard'
-            readOnly={!isEncrypt}
-            autoCorrect='off'
-            spellCheck='false'
-          ></textarea>
-          {<CopyButton errorMessage={errorMessage} message={message} visible={isEncrypt} />}
-        </div>
-        <div>
-          <div className={`rope rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}></div>
-          <textarea
-            onChange={compilerText}
-            cols={30}
-            rows={10}
-            className='clipboard'
-            readOnly={isEncrypt}
-            autoCorrect='off'
-            spellCheck='false'
-          ></textarea>
-          <CopyButton errorMessage={errorMessage} message={message} visible={!isEncrypt} />
-        </div>
+        <Clipboard
+          compilerText={compilerText}
+          errorMessage={errorMessage}
+          isEncrypt={isEncrypt}
+          message={message}
+          styles={`rope__top ${isEncrypt ? '' : 'rope_reverse'}`}
+        />
+        <Clipboard
+          compilerText={compilerText}
+          errorMessage={errorMessage}
+          isEncrypt={!isEncrypt}
+          message={message}
+          styles={`rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}
+        />
       </div>
       <div id='messagePortal' aria-describedby='cryptText'></div>
     </section>
