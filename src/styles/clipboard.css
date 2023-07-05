@@ -139,6 +139,9 @@
   position: absolute;
   bottom: 1.6rem;
   right: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: var(--size-copy);
   height: var(--size-copy);
   background-color: transparent;
