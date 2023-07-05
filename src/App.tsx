@@ -64,21 +64,24 @@ export default function HomePage() {
         <img src='/column.png' alt='' className='column column_left' />
         <img src='/column.png' alt='' className='column column_right' />
         <div className='containerWidth'>
-          <p id='introduction' className='introduction'>
-            {intro}
-          </p>
-          <div className='displacement'>
-            <span className='displacement__text'>{displacement}</span>
-            <input
-              type='number'
-              name='displacement'
-              id='displacement'
-              placeholder='3'
-              min='0'
-              max='27'
-              onChange={changeDisplacement}
-              value={displacementValue}
-            />
+          <div className='description'>
+            <p id='introduction' className='introduction'>
+              {intro}
+            </p>
+            <div className='displacement'>
+              <span className='displacement__text'>{displacement}</span>
+              <input
+                type='number'
+                name='displacement'
+                id='displacement'
+                className='displacement__input'
+                placeholder='3'
+                min='0'
+                max='27'
+                onChange={changeDisplacement}
+                value={displacementValue}
+              />
+            </div>
           </div>
           <Cipher
             displacementValue={displacementValue}
