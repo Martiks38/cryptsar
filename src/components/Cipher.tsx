@@ -29,6 +29,12 @@ export function Cipher({
   const [titleOriginal, titleEncrypt] = exchange
   const currentlabelActionButton = labelActionButton[isEncrypt ? 0 : 1]
 
+  useEffect(() => {
+    return () => {
+      if (cryptTimeoutId.current) clearTimeout(cryptTimeoutId.current)
+    }
+  }, [])
+
   const changeAction = () => {
     const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
 
