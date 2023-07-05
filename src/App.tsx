@@ -14,7 +14,11 @@ export default function HomePage() {
   useEffect(() => {
     const lang = window.localStorage.getItem('lang')
 
-    if (lang !== null) setLang(lang)
+    if (lang !== null) {
+      setLang(lang)
+    } else {
+      window.localStorage.setItem('lang', 'en')
+    }
   }, [])
 
   const { displacement, errorMessage, exchange, intro, labelActionButton, language, message } =
@@ -23,6 +27,7 @@ export default function HomePage() {
   const isLanguageEnglish = lang === 'en'
 
   const changeLanguage = () => {
+    window.localStorage.setItem('lang', lang === 'en' ? 'es' : 'en')
     setLang((currentLang) => (currentLang === 'en' ? 'es' : 'en'))
   }
 
