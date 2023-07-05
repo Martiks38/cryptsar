@@ -5,7 +5,8 @@
   --bg-column: #e4e2dd;
   --bg-column-shadow: #000;
   --grey: #717171;
-  --letter-color: #fff;
+  --color-white: #fff;
+  --letter-color: var(--color-white);
 }
 
 * {
@@ -34,19 +35,19 @@ html {
   padding: 0.1em 0;
   width: 6ch;
   background-color: rgb(0 0 0 / 0.4);
-  color: #fff;
+  color: var(--color-white);
   border: solid 2px rgb(255 255 255 / 0.6);
   border-radius: 0.25rem;
   text-align: center;
 }
 
-input[type='number']::placeholder {
-  color: #fff;
+.displacement__input::placeholder {
+  color: var(--color-white);
   opacity: 0.85;
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+.displacement__input::-webkit-inner-spin-button,
+.displacement__input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -172,9 +173,9 @@ input[type='number']::-webkit-outer-spin-button {
 .containerWidth {
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   max-width: var(--max-w-container);
   width: 100%;
-  margin: 0 auto;
 }
 
 .description {
@@ -184,45 +185,6 @@ input[type='number']::-webkit-outer-spin-button {
 
 .containerWidth > section {
   position: relative;
-}
-
-.action {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 0.8rem 0;
-}
-
-.action.action_rowReverse {
-  flex-direction: row-reverse;
-}
-
-.action > h2 {
-  margin: 0;
-  flex-basis: 11.25rem;
-  flex-shrink: 1;
-  font-size: 1.5rem;
-  font-size: clamp(1.5rem, 1.275rem + 1vw, 1.875rem);
-  line-height: 2rem;
-  text-align: center;
-}
-
-.action__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border-width: 1px;
-  border-color: transparent;
-  border-radius: 4px;
-}
-
-.action__arrowBoth {
-  --size-arrow: 2.25em;
-
-  width: var(--size-arrow);
-  height: var(--size-arrow);
 }
 
 @media (min-width: 48.75rem) {
@@ -276,23 +238,5 @@ input[type='number']::-webkit-outer-spin-button {
   .displacement,
   .introduction {
     line-height: 2rem;
-  }
-
-  .action > h2 {
-    line-height: 2.25rem;
-  }
-}
-
-@media (hover: none) {
-  .action__button:hover {
-    border: solid 1px #fff;
-    background-color: rgba(39, 37, 37, 0.6);
-  }
-}
-
-@media (hover: hover) {
-  .action__button:hover {
-    border: solid 1px #fff;
-    background-color: rgba(39, 37, 37, 0.6);
   }
 }

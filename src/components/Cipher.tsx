@@ -5,6 +5,7 @@ import { CopyButton } from './CopyButton'
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
 
 import '../styles/clipboard.css'
+import '../styles/actionBar.css'
 
 type CipherProps = {
   displacementValue: number
