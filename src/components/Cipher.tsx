@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-
+import { useTranslations } from '../hooks/useTranslations'
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
 
 import '../styles/clipboard.css'
@@ -8,24 +8,14 @@ import { Clipboard } from './Clipboard'
 
 type CipherProps = {
   displacementValue: number
-  errorMessage: string
-  exchange: string[]
-  labelActionButton: string[]
-  lang: string
-  message: string
 }
 
-export function Cipher({
-  displacementValue,
-  errorMessage,
-  exchange,
-  labelActionButton,
-  lang,
-  message
-}: CipherProps) {
+export function Cipher({ displacementValue }: CipherProps) {
   const [isEncrypt, setIsEncrypt] = useState(true)
+  const { currentTexts, lang } = useTranslations()
   const cryptTimeoutId = useRef<number | undefined>(undefined)
 
+  const { exchange, labelActionButton } = currentTexts
   const [titleOriginal, titleEncrypt] = exchange
   const currentlabelActionButton = labelActionButton[isEncrypt ? 0 : 1]
 
@@ -57,13 +47,13 @@ export function Cipher({
         const encryptedText = lang === 'en' ? encrypt(data) : encryptSpanish(data)
 
         clipboard.value = encryptedText
-      }, 600)
+      }, 400)
     } else {
       cryptTimeoutId.current = window.setTimeout(() => {
         const encryptedText = lang === 'en' ? decrypt(data) : decryptSpanish(data)
 
         clipboard.value = encryptedText
-      }, 600)
+      }, 400)
     }
   }
 
@@ -71,6 +61,14 @@ export function Cipher({
     const message = ev.currentTarget.value
 
     cryptAction(message)
+  }
+
+  const clearTextarea = () => {
+    const $$textarea = document.querySelectorAll('textarea')
+
+    $$textarea.forEach((textarea) => (textarea.value = ''))
+
+    clearTimeout(cryptTimeoutId.current)
   }
 
   useEffect(() => {
@@ -107,17 +105,15 @@ export function Cipher({
       </header>
       <div className={`clipboardContainer ${isEncrypt ? '' : 'clipboardContainer_reverse'}`}>
         <Clipboard
+          clearTextarea={clearTextarea}
           compilerText={compilerText}
-          errorMessage={errorMessage}
           isEncrypt={isEncrypt}
-          message={message}
           styles={`rope__top ${isEncrypt ? '' : 'rope_reverse'}`}
         />
         <Clipboard
+          clearTextarea={clearTextarea}
           compilerText={compilerText}
-          errorMessage={errorMessage}
           isEncrypt={!isEncrypt}
-          message={message}
           styles={`rope__bottom ${isEncrypt ? '' : 'rope_reverse'}`}
         />
       </div>

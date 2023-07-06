@@ -7,6 +7,9 @@
   --grey: #717171;
   --color-white: #fff;
   --letter-color: var(--color-white);
+  --size-clipboard-button: 2.4rem;
+  --distance-y-clear-button: 1.8rem;
+  --distance-x-clear-button: 1.8rem;
 }
 
 * {

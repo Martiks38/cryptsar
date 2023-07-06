@@ -134,16 +134,14 @@
 }
 
 .clipboard__copy {
-  --size-copy: 2.4rem;
-
   position: absolute;
-  bottom: 1.6rem;
-  right: 2.2rem;
+  bottom: var(--distance-y-clear-button);
+  right: var(--distance-x-clear-button);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--size-copy);
-  height: var(--size-copy);
+  width: var(--size-clipboard-button);
+  height: var(--size-clipboard-button);
   background-color: transparent;
   border-width: 0;
   border-radius: 50%;
@@ -208,6 +206,32 @@
   top: auto;
   bottom: calc(var(--position-hole) + calc(var(--size-hole) / 4));
   transform: var(--rotate-rope) translateX(calc(-1 * var(--translate-rope)));
+}
+
+.clipboard__clearText {
+  position: absolute;
+  top: var(--distance-y-clear-button);
+  right: var(--distance-x-clear-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-clipboard-button);
+  height: var(--size-clipboard-button);
+  background-color: transparent;
+  border-width: 0;
+  border-radius: 50%;
+  color: #dab086;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.clipboard__clearText:hover {
+  background-color: rgb(255 255 255 / 0.2);
+}
+
+.clipboard__clearText.hidden {
+  visibility: hidden;
 }
 
 @media (min-width: 48.75rem) {
