@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import { CopyButton } from './CopyButton'
 import { useTranslations } from '../hooks/useTranslations'
@@ -11,20 +11,26 @@ type ClipboardProps = {
 }
 
 export function Clipboard({ compilerText, clearTextarea, isEncrypt, styles }: ClipboardProps) {
-  const [text, setText] = useState('')
   const { currentTexts } = useTranslations()
   const { clipboardBtns, errorMessage, message } = currentTexts
   const { copy, erase } = clipboardBtns
+  const [viewEraseText, setViewEraseText] = useState(false)
 
   const changeText = (ev: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(ev.currentTarget.value)
+    const message = ev.currentTarget.value
     compilerText(ev)
+
+    if (message && !viewEraseText) setViewEraseText(true)
+    if (!message) setViewEraseText(false)
   }
 
   const clearText = () => {
-    setText('')
     clearTextarea()
   }
+
+  useEffect(() => {
+    setViewEraseText((prevView: boolean) => !prevView)
+  }, [isEncrypt])
 
   return (
     <div>
@@ -37,11 +43,10 @@ export function Clipboard({ compilerText, clearTextarea, isEncrypt, styles }: Cl
         readOnly={!isEncrypt}
         autoCorrect='off'
         spellCheck='false'
-        value={text}
       ></textarea>
       <button
         onClick={clearText}
-        className={`clipboard__clearText ${isEncrypt && text ? '' : 'hidden'}`}
+        className={`clipboard__clearText ${isEncrypt && viewEraseText ? '' : 'hidden'}`}
         aria-label={erase}
       >
         <span>X</span>

@@ -72,13 +72,6 @@ export function Cipher({ displacementValue }: CipherProps) {
     clearTimeout(cryptTimeoutId.current)
   }
 
-  useEffect(() => {
-    const clipboards = Array.from(document.querySelectorAll<HTMLTextAreaElement>('.clipboard'))
-    const message = clipboards[0].value
-
-    cryptAction(message)
-  }, [displacementValue])
-
   return (
     <section>
       <header className={`action ${isEncrypt ? '' : 'action_rowReverse'}`}>
