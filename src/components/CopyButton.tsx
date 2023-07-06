@@ -3,11 +3,12 @@ import { createPortal } from 'react-dom'
 
 type CopyButtonProps = {
   errorMessage: string
+  label: string
   message: string
   visible: boolean
 }
 
-export function CopyButton({ errorMessage, message, visible }: CopyButtonProps) {
+export function CopyButton({ errorMessage, label, message, visible }: CopyButtonProps) {
   const [popupMessage, setPopupMessage] = useState<ReactNode | null>(null)
   const isVisibleMessage = useRef(false)
   const closePopup = useRef<number | undefined>(undefined)
@@ -63,6 +64,7 @@ export function CopyButton({ errorMessage, message, visible }: CopyButtonProps) 
         className={`clipboard__copy ${visible ? 'hidden' : ''}`}
         onClick={copyText}
         aria-describedby='cryptText'
+        aria-label={label}
       >
         <svg
           aria-hidden='true'

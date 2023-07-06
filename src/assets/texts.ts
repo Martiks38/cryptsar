@@ -1,4 +1,4 @@
-type Translations = {
+export type Translations = {
   intro: string
   displacement: string
   errorMessage: string
@@ -9,6 +9,10 @@ type Translations = {
     flagAlt: string
   }
   message: string
+  clipboardBtns: {
+    copy: string
+    erase: string
+  }
 }
 
 export const texts: { [lang: string]: Translations } = {
@@ -23,7 +27,11 @@ export const texts: { [lang: string]: Translations } = {
       labelLangButton: 'Change language to Spanish',
       flagAlt: 'Language of the page in English'
     },
-    message: 'Copied message'
+    message: 'Copied message',
+    clipboardBtns: {
+      copy: 'Copy text',
+      erase: 'Erase text'
+    }
   },
   es: {
     displacement: 'Desplazamiento:',
@@ -39,6 +47,10 @@ export const texts: { [lang: string]: Translations } = {
       labelLangButton: 'Cambiar idioma a inglés',
       flagAlt: 'Idioma de la página en español'
     },
-    message: 'Mensaje copiado'
+    message: 'Mensaje copiado',
+    clipboardBtns: {
+      copy: 'Copiar texto',
+      erase: 'Borrar texto'
+    }
   }
 }

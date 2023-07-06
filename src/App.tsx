@@ -1,35 +1,18 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { useTranslations } from './hooks/useTranslations.ts'
 
 import { Cipher } from './components/Cipher'
-
-import { texts } from './assets/texts.ts'
 
 import './style.css'
 import './styles/displacement.css'
 
 export default function HomePage() {
   const [displacementValue, setDisplacementValue] = useState(3)
-  const [lang, setLang] = useState('en')
+  const { changeLanguage, currentTexts, lang } = useTranslations()
 
-  useEffect(() => {
-    const lang = window.localStorage.getItem('lang')
-
-    if (lang !== null) {
-      setLang(lang)
-    } else {
-      window.localStorage.setItem('lang', 'en')
-    }
-  }, [])
-
-  const { displacement, errorMessage, exchange, intro, labelActionButton, language, message } =
-    texts[lang]
+  const { displacement, intro, language } = currentTexts
   const { labelLangButton, flagAlt } = language
   const isLanguageEnglish = lang === 'en'
-
-  const changeLanguage = () => {
-    window.localStorage.setItem('lang', lang === 'en' ? 'es' : 'en')
-    setLang((currentLang) => (currentLang === 'en' ? 'es' : 'en'))
-  }
 
   const changeDisplacement = (ev: ChangeEvent<HTMLInputElement>) => {
     const value = Number(ev.currentTarget.value)
@@ -90,14 +73,7 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <Cipher
-            displacementValue={displacementValue}
-            errorMessage={errorMessage}
-            exchange={exchange}
-            labelActionButton={labelActionButton}
-            lang={lang}
-            message={message}
-          />
+          <Cipher displacementValue={displacementValue} />
         </div>
       </main>
     </div>
