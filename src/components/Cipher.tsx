@@ -2,9 +2,10 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useTranslations } from '../hooks/useTranslations'
 import { decrypt, decryptSpanish, encrypt, encryptSpanish } from '../utils/crypt'
 
+import { Clipboard } from './Clipboard'
+
 import '../styles/clipboard.css'
 import '../styles/actionBar.css'
-import { Clipboard } from './Clipboard'
 
 type CipherProps = {
   displacementValue: number
