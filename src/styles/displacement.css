@@ -16,6 +16,7 @@
   border: solid 2px rgb(255 255 255 / 0.6);
   border-radius: 0.25rem;
   text-align: center;
+  appearance: textfield;
 }
 
 .displacement__input::placeholder {
