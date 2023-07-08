@@ -23,8 +23,10 @@ export function CopyButton({ errorMessage, label, message, visible }: CopyButton
     return window.setTimeout(() => {
       setPopupMessage(<span>{msg}</span>)
       closePopup.current = window.setTimeout(() => setPopupMessage(null), 300)
-
       isVisibleMessage.current = false
+
+      const messagePortal = document.querySelector('.messagePortal')
+      if (messagePortal instanceof HTMLDivElement) messagePortal.classList.toggle('visible')
     }, 1500)
   }
 
@@ -49,11 +51,20 @@ export function CopyButton({ errorMessage, label, message, visible }: CopyButton
           closePopup.current = visiblePopup(message)
 
           isVisibleMessage.current = true
+
+          const messagePortal = document.querySelector('.messagePortal')
+          if (messagePortal instanceof HTMLDivElement) {
+            messagePortal.classList.toggle('visible')
+          }
         })
         .catch(() => {
           setPopupMessage(<p>{errorMessage}</p>)
 
           closePopup.current = visiblePopup(message)
+          const messagePortal = document.querySelector('.messagePortal')
+          if (messagePortal instanceof HTMLDivElement) {
+            messagePortal.classList.toggle('visible')
+          }
         })
     }
   }
@@ -86,7 +97,7 @@ export function CopyButton({ errorMessage, label, message, visible }: CopyButton
         </svg>
       </button>
       {popupMessage
-        ? createPortal(popupMessage, document.getElementById('messagePortal') as HTMLElement)
+        ? createPortal(popupMessage, document.querySelector('.messagePortal') as HTMLElement)
         : null}
     </>
   )
