@@ -61,7 +61,7 @@ export function CopyButton({ errorMessage, label, message, visible }: CopyButton
   return (
     <>
       <button
-        className={`clipboard__copy ${visible ? 'hidden' : ''}`}
+        className={`clipboard__copy ${visible ? '' : 'hidden'}`}
         onClick={copyText}
         aria-describedby='cryptText'
         aria-label={label}
