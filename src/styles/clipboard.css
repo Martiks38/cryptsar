@@ -1,4 +1,4 @@
-#messagePortal {
+.messagePortal {
   position: absolute;
 
   bottom: 2.2rem;
@@ -15,11 +15,11 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#messagePortal p {
+.messagePortal p {
   margin: 0;
 }
 
-#messagePortal:has(p) {
+.messagePortal.visible {
   bottom: 3rem;
   opacity: 1;
 }
@@ -235,7 +235,7 @@
 }
 
 @media (min-width: 48.75rem) {
-  #messagePortal {
+  .messagePortal {
     line-height: 2rem;
   }
 }

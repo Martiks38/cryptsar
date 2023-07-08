@@ -53,7 +53,7 @@ export function Cipher({ displacementValue }: CipherProps) {
         <h2>{titleEncrypt}</h2>
       </header>
       <ClipboardContainer displacementValue={displacementValue} isEncrypt={isEncrypt} />
-      <div id='messagePortal' aria-describedby='cryptText'></div>
+      <div className='messagePortal' aria-describedby='cryptText'></div>
     </section>
   )
 }
